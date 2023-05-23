@@ -1,74 +1,79 @@
-<?php
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="../css/form.css">
+     
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-include_once '../classes/Paciente.control.php';
+   <title>Añadir cita</title>
+</head>
+<body>
+    <div class="container">
+        <header>Añadir cita</header>
 
-$documento = isset($_GET['doc']) ? $_GET['doc'] : "";
+        <form action="pacienteProcess.php" method="post">
+            <div class="form first">
+                <div class="details personal">
+                    <span class="title">Datos personales</span>
 
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>Lugar</label>
+                            <input type="text" name="txtLugar" placeholder="Ingresar Lugar" required>
+                        </div>
 
-$paciente_obj = new PacienteControl();
+                        <div class="input-field">
+                            <label>Consultorio</label>
+                            <input type="text" name="txtConsultorio" placeholder="Ingresar Consultorio" required>
+                        </div>
 
-$obj_paciente = $paciente_obj->select_paciente($documento);
+                        <div class="input-field">
+                            <label>Nombre Docotor</label>
+                            <input type="date" name="txtDoctor" placeholder="Ingresar Docotor" required>
+                        </div>
 
-if($obj_paciente != null)
-{?>
+                        <div class="input-field">
+                            <label>Hora cita</label>
+                            <input type="time" name="txtHoraCita" placeholder="Ingrese hora" required>
+                        </div>
 
+                        <div class="input-field">
+                            <label>Fecha de registro</label>
+                            <input type="date" name="txtFecharegistro" placeholder="Ingrese Fecha registrada" required>
+                        </div>
 
-<form action="pacienteProcess.php" method="POST">
-
-<h2>Actualizar paciente</h2>
-
-<div class="control">
-                <label for="txtDocumento">Documento</label>
-                <input type="text" value="<?php echo $obj_paciente->getDocumento() ; ?>" name="txtDocumento" readonly>
+                        <div class="input-field">
+                            <label>Paciente asociado</label>
+                            <?php  require_once '../../classes/Paciente.control.php';
+                                $objPacienteControl = new PacienteControl();
+                                $allpacientes = $objPacienteControl->list_paciente2();
+                            ?>
+                             <select name="txtPacdocumento" id="txtPacdocumento"> 
+                                <?php foreach($allpacientes as $item) { ?>
+                                    <option value="<?php echo $item->getDocumento(); ?>"><?php echo $item->getNombre(); ?></option>
+                                <?php }?>
+                            </select>
+                        </div>
+    
+                        <div class="input-field">
+                           
+                          
+                        </div>
+                    </div>
+                </div>
+                 <input type="submit" class="btnText" value="enviar">
+                 <input type="hidden" name="op" value="1">
+                      
+                  
+                </div> 
             </div>
-            <div class="control">
-                <label for="txtNombre">Nombre</label>
-                <input type="text" value="<?php echo $obj_paciente->getNombre() ; ?>" name="txtNombre">
-            </div>
-            <div class="control">
-                <label for="txtFecha_nac">Fecha de nacimiento</label>   
-                <input type="date" value="<?php echo $obj_paciente->getFecha() ; ?>" name="txtFecha_nac">
-            </div>
-
-            <div class="control">
-                <label for="txtDireccion">Direccion</label>
-                <input type="text" value="<?php echo $obj_paciente->getDireccion() ; ?>" name="txtDireccion">
-            </div>
-
-            <div class="control">
-                <label for="txtTelefono">telefono</label>
-                <input type="text" value="<?php echo $obj_paciente->getTelefono() ; ?>" name="txtTelefono">
-            </div>
-
-            <div class="control">
-                <label for="txtEstado">estado</label>
-                <input type="text" value="<?php echo $obj_paciente->getEstado() ; ?>" name="txtEstado">
-            </div>
-
-            <div class="control">
-                <label for="txtGenero">Genero</label>
-                <?php if($gen = $obj_paciente->getGenero()); ?>
-                <select name="txtGenero" id="">
-                    <option value="f" <?php echo ($gen=="f")?"selected":""; ?> >Femenino</option>
-                    <option value="m" <?php echo ($gen=="m")?"selected":""; ?> >Masculino</option>
-                    <option value="o" <?php echo ($gen=="0")?"selected":""; ?> >Otro</option>
-                </select>
-            </div>
-
-            <div class="control">
-                <label for="txtEps">eps</label>
-                <input type="text" value="<?php echo $obj_paciente->getEstado() ; ?>" name="txtEps">
-            </div>
-
-            <input type="submit" value="Guardar">
-            <input type="hidden" value="2" name="op">
-
-
-
-
-
-
-
 </form>
- 
-<?php } ?>
+          
+     
+    <script src="../js/form.js"></script>
+</body>
+</html>

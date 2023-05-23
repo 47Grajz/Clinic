@@ -143,6 +143,7 @@ input[type="submit"]{
     height: 40px;
     border-radius: 5px;
     font-size: 20em;
+    margin-top: 150px;
 }
 
 input[type="submit"]:hover{

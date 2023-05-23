@@ -26,7 +26,7 @@ $opcionFormulario = isset($_REQUEST['op']) ? $_REQUEST['op'] :"";
             echo $pacientedocumento;
 
             $cita_objeto->insert_cita($cita_obj);
-            #header('Location: list_pacientes.php');
+            header('Location: list_citas.php');
 
             break;
 
